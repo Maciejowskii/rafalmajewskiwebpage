@@ -1,0 +1,144 @@
+"use client";
+
+import { useState } from "react";
+import { useFormStatus } from "react-dom";
+import { ArrowLeft, Save } from "lucide-react";
+import Link from "next/link";
+import RichTextEditor from "@/components/RichTextEditor";
+import { createPostAction } from "../actions";
+
+function SubmitButton({ isDraft }: { isDraft?: boolean }) {
+  const { pending } = useFormStatus();
+
+  return (
+    <button
+      type="submit"
+      name="status"
+      value={isDraft ? "draft" : "published"}
+      disabled={pending}
+      className={`px-6 py-2.5 rounded-lg font-bold flex items-center gap-2 transition-all disabled:opacity-50 ${
+        isDraft 
+          ? "bg-zinc-800 text-zinc-300 hover:bg-zinc-700 hover:text-white" 
+          : "bg-lime-400 text-zinc-900 hover:bg-lime-300"
+      }`}
+    >
+      <Save className="w-4 h-4" />
+      {pending ? "Zapisywanie..." : (isDraft ? "Zapisz Szkic" : "Opublikuj Wpis")}
+    </button>
+  );
+}
+
+export default function NewPostPage() {
+  const [content, setContent] = useState("");
+  const [error, setError] = useState<string | null>(null);
+
+  async function handleAction(formData: FormData) {
+    formData.append("content", content);
+    
+    // Call server action directly passing form data
+    const result = await createPostAction(null, formData);
+    if (result && result.error) {
+      setError(result.error);
+    }
+  }
+
+  return (
+    <div className="max-w-4xl mx-auto">
+      <div className="flex items-center gap-4 mb-8">
+        <Link
+          href="/admin/posts"
+          className="w-10 h-10 bg-zinc-900 border border-zinc-800 rounded-lg flex items-center justify-center text-zinc-400 hover:text-white hover:border-zinc-700 transition-colors"
+        >
+          <ArrowLeft className="w-5 h-5" />
+        </Link>
+        <h1 className="text-3xl font-bold text-white">Dodaj Nowy Wpis</h1>
+      </div>
+
+      <form action={handleAction} className="space-y-6">
+        {error && (
+          <div className="bg-red-500/10 border border-red-500/50 text-red-500 p-4 rounded-lg">
+            {error}
+          </div>
+        )}
+
+        {/* Main Content Area */}
+        <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 space-y-6">
+          <div>
+            <label htmlFor="title" className="block text-sm font-medium text-zinc-300 mb-2">
+              Tytuł Wpisu *
+            </label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              required
+              placeholder="Np. Jak wybrać instalację fotowoltaiczną?"
+              className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:border-lime-400 focus:ring-1 focus:ring-lime-400/50"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-zinc-300 mb-2">
+              Treść Artykułu *
+            </label>
+            {/* The Quill Editor will attach its own min-height */}
+            <RichTextEditor value={content} onChange={setContent} />
+          </div>
+          
+          <div>
+            <label htmlFor="excerpt" className="block text-sm font-medium text-zinc-300 mb-2">
+              Zajawka (Krótki opis widoczny na liście wpisów)
+            </label>
+            <textarea
+              id="excerpt"
+              name="excerpt"
+              rows={3}
+              placeholder="Wprowadź krótkie wprowadzenie do artykułu..."
+              className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:border-lime-400 focus:ring-1 focus:ring-lime-400/50 resize-y"
+            />
+          </div>
+        </div>
+
+        {/* SEO Settings */}
+        <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 space-y-6">
+          <h2 className="text-xl font-bold text-white pb-2 border-b border-zinc-800">
+            Ustawienia SEO (Pozycjonowanie)
+          </h2>
+          <div>
+            <label htmlFor="seoTitle" className="block text-sm font-medium text-zinc-300 mb-2">
+              SEO Tytuł (Title Tag)
+            </label>
+            <input
+              type="text"
+              id="seoTitle"
+              name="seoTitle"
+              placeholder="Domyślnie użyje tytułu wpisu"
+              className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:border-lime-400 focus:ring-1 focus:ring-lime-400/50"
+            />
+            <p className="mt-1 text-xs text-zinc-500">Optymalna długość to maks. 60 znaków.</p>
+          </div>
+
+          <div>
+            <label htmlFor="seoDescription" className="block text-sm font-medium text-zinc-300 mb-2">
+              SEO Opis (Meta Description)
+            </label>
+            <textarea
+              id="seoDescription"
+              name="seoDescription"
+              rows={2}
+              placeholder="Domyślnie użyje zajawki wpisu"
+              className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:border-lime-400 focus:ring-1 focus:ring-lime-400/50 resize-y"
+            />
+            <p className="mt-1 text-xs text-zinc-500">Zachęcający opis do wyników wyszukiwania (Google). Maksymalnie 160 znaków.</p>
+          </div>
+        </div>
+
+        {/* Action Bar */}
+        <div className="flex items-center justify-end gap-4 pt-4 border-t border-zinc-800">
+          <SubmitButton isDraft />
+          <SubmitButton />
+        </div>
+      </form>
+    </div>
+  );
+}
