@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
-import { Plus, Edit2, Trash2, Eye } from "lucide-react";
+import { Plus, Edit2, Eye } from "lucide-react";
+import DeletePostButton from "./DeletePostButton";
 
 export const dynamic = "force-dynamic";
 
@@ -79,9 +80,7 @@ export default async function PostsPage() {
                       <Link href={`/admin/posts/${post.id}/edit`} className="p-2 text-zinc-400 hover:text-lime-400 hover:bg-zinc-700 rounded-lg transition-colors" title="Edytuj">
                         <Edit2 className="w-4 h-4" />
                       </Link>
-                      <button className="p-2 text-zinc-400 hover:text-red-400 hover:bg-zinc-700 rounded-lg transition-colors" title="Usuń">
-                        <Trash2 className="w-4 h-4" />
-                      </button>
+                      <DeletePostButton id={post.id} />
                     </div>
                   </td>
                 </tr>

@@ -15,8 +15,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  /* 
-  // Temporarily bypassing authentication as requested by the user
+  // Ensure authentication for admin routes
   const session = request.cookies.get("admin_session")?.value;
 
   if (!session) {
@@ -31,8 +30,6 @@ export async function middleware(request: NextRequest) {
     // Session invalid or expired
     return NextResponse.redirect(new URL("/admin/login", request.url));
   }
-  */
-  return NextResponse.next();
 }
 
 export const config = {
