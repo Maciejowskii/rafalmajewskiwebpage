@@ -75,6 +75,25 @@ export default async function BlogIndexPage() {
                 href={`/blog/${post.slug}`}
                 className="group flex flex-col bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden hover:border-lime-500/50 hover:shadow-lg hover:shadow-lime-900/20 transition-all duration-300"
               >
+                {/* Post Image/Thumbnail */}
+                <div className="aspect-[16/9] w-full bg-zinc-800 overflow-hidden relative">
+                  {post.imageUrl ? (
+                    <img 
+                      src={post.imageUrl} 
+                      alt={post.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-zinc-800 to-zinc-900">
+                      <div className="w-12 h-12 rounded-full bg-lime-400/10 flex items-center justify-center border border-lime-400/20">
+                        <span className="text-lime-400 font-bold text-xl">V</span>
+                      </div>
+                    </div>
+                  )}
+                  {/* Overlay for better readability if needed, though here we want clean looks */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
+
                 <div className="p-8 flex flex-col flex-1">
                   <div className="flex items-center gap-2 text-xs text-lime-400 font-medium mb-4">
                     <Clock className="w-3.5 h-3.5" />
@@ -87,7 +106,7 @@ export default async function BlogIndexPage() {
                   <h2 className="text-2xl font-bold text-white mb-3 group-hover:text-lime-400 transition-colors line-clamp-2">
                     {post.title}
                   </h2>
-                  <p className="text-zinc-400 mt-auto line-clamp-3">
+                  <p className="text-zinc-400 mt-auto line-clamp-3 leading-relaxed">
                     {post.excerpt || "Przeczytaj artykuł, aby dowiedzieć się więcej na ten temat."}
                   </p>
                 </div>

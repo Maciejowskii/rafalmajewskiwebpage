@@ -22,6 +22,7 @@ export async function createPostAction(prevState: any, formData: FormData) {
   const title = formData.get("title") as string;
   const content = formData.get("content") as string;
   const excerpt = formData.get("excerpt") as string;
+  const imageUrl = formData.get("imageUrl") as string;
   const seoTitle = formData.get("seoTitle") as string;
   const seoDescription = formData.get("seoDescription") as string;
   const status = formData.get("status") as string; // 'draft' or 'published'
@@ -45,6 +46,7 @@ export async function createPostAction(prevState: any, formData: FormData) {
         slug,
         content,
         excerpt: excerpt || null,
+        imageUrl: imageUrl || null,
         seoTitle: seoTitle || null,
         seoDescription: seoDescription || null,
         publishedAt: status === "published" ? new Date() : null,
@@ -69,6 +71,7 @@ export async function updatePostAction(prevState: any, formData: FormData) {
   const title = formData.get("title") as string;
   const content = formData.get("content") as string;
   const excerpt = formData.get("excerpt") as string;
+  const imageUrl = formData.get("imageUrl") as string;
   const seoTitle = formData.get("seoTitle") as string;
   const seoDescription = formData.get("seoDescription") as string;
   const status = formData.get("status") as string; // 'draft' or 'published'
@@ -95,6 +98,7 @@ export async function updatePostAction(prevState: any, formData: FormData) {
         title,
         content,
         excerpt: excerpt || null,
+        imageUrl: imageUrl || null,
         seoTitle: seoTitle || null,
         seoDescription: seoDescription || null,
         publishedAt: status === "published" ? (existingPost.publishedAt || new Date()) : null,

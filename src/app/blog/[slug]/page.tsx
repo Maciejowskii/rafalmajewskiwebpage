@@ -115,6 +115,16 @@ export default async function BlogPostPage({ params }: Props) {
         </Link>
 
         <header className="mb-12 border-b border-zinc-800 pb-8">
+          {post.imageUrl && (
+            <div className="aspect-[21/9] w-full bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 mb-10 shadow-2xl">
+              <img 
+                src={post.imageUrl} 
+                alt={post.title} 
+                className="w-full h-full object-cover"
+              />
+            </div>
+          )}
+
           <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight mb-6">
             {post.title}
           </h1>

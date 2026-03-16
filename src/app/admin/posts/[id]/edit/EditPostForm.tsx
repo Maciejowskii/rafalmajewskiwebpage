@@ -2,12 +2,12 @@
 
 import { useState } from "react";
 import { useFormStatus } from "react-dom";
-import { ArrowLeft, Save } from "lucide-react";
+import { ArrowLeft, Save, Image as ImageIcon, Sparkles, Globe, FileText } from "lucide-react";
 import Link from "next/link";
 import RichTextEditor from "@/components/RichTextEditor";
 import { updatePostAction } from "../../actions";
 
-function SubmitButton({ isDraft }: { isDraft?: boolean }) {
+function SubmitButton({ isDraft, isSecondary }: { isDraft?: boolean; isSecondary?: boolean }) {
   const { pending } = useFormStatus();
 
   return (
@@ -16,20 +16,21 @@ function SubmitButton({ isDraft }: { isDraft?: boolean }) {
       name="status"
       value={isDraft ? "draft" : "published"}
       disabled={pending}
-      className={`px-6 py-2.5 rounded-lg font-bold flex items-center gap-2 transition-all disabled:opacity-50 ${
-        isDraft 
-          ? "bg-zinc-800 text-zinc-300 hover:bg-zinc-700 hover:text-white" 
-          : "bg-lime-400 text-zinc-900 hover:bg-lime-300"
+      className={`px-6 py-2.5 rounded-xl font-bold flex items-center gap-2 transition-all disabled:opacity-50 active:scale-95 ${
+        isSecondary
+          ? "bg-zinc-800 text-zinc-300 hover:bg-zinc-700 hover:text-white border border-zinc-700" 
+          : "bg-lime-400 text-zinc-900 hover:bg-lime-300 shadow-lg shadow-lime-400/20"
       }`}
     >
       <Save className="w-4 h-4" />
-      {pending ? "Zapisywanie..." : (isDraft ? "Zapisz jako Szkic" : "Aktualizuj Wpis")}
+      {pending ? "Zapisywanie..." : (isDraft ? "Zapisz jako Szkic" : "Aktualizuj i Opublikuj")}
     </button>
   );
 }
 
 export default function EditPostForm({ post }: { post: any }) {
   const [content, setContent] = useState(post.content || "");
+  const [imageUrl, setImageUrl] = useState(post.imageUrl || "");
   const [error, setError] = useState<string | null>(null);
 
   async function handleAction(formData: FormData) {
@@ -43,96 +44,178 @@ export default function EditPostForm({ post }: { post: any }) {
   }
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <div className="flex items-center gap-4 mb-8">
-        <Link
-          href="/admin/posts"
-          className="w-10 h-10 bg-zinc-900 border border-zinc-800 rounded-lg flex items-center justify-center text-zinc-400 hover:text-white hover:border-zinc-700 transition-colors"
-        >
-          <ArrowLeft className="w-5 h-5" />
-        </Link>
-        <h1 className="text-3xl font-bold text-white">Edytuj Wpis</h1>
+    <div className="max-w-5xl mx-auto pb-12">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
+        <div className="flex items-center gap-4">
+          <Link
+            href="/admin/posts"
+            className="w-12 h-12 bg-zinc-900 border border-zinc-800 rounded-xl flex items-center justify-center text-zinc-400 hover:text-white hover:border-zinc-700 transition-all hover:bg-zinc-800"
+          >
+            <ArrowLeft className="w-6 h-6" />
+          </Link>
+          <div>
+            <h1 className="text-4xl font-black text-white tracking-tight">Edytuj Wpis</h1>
+            <p className="text-zinc-500 mt-1">Dostosuj szczegóły i opublikuj zmiany.</p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <SubmitButton isSecondary isDraft />
+          <SubmitButton />
+        </div>
       </div>
 
-      <form action={handleAction} className="space-y-6">
-        {error && (
-          <div className="bg-red-500/10 border border-red-500/50 text-red-500 p-4 rounded-lg">
-            {error}
-          </div>
-        )}
+      <form action={handleAction} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="lg:col-span-2 space-y-8">
+          {error && (
+            <div className="bg-red-500/10 border border-red-500/30 text-red-500 p-4 rounded-xl flex items-center gap-3 animate-in fade-in slide-in-from-top-2">
+              <div className="w-2 h-2 rounded-full bg-red-500" />
+              <p className="text-sm font-medium">{error}</p>
+            </div>
+          )}
 
-        <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 space-y-6">
-          <div>
-            <label htmlFor="title" className="block text-sm font-medium text-zinc-300 mb-2">
-              Tytuł Wpisu *
-            </label>
-            <input
-              type="text"
-              id="title"
-              name="title"
-              required
-              defaultValue={post.title}
-              className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-lime-400 focus:ring-1 focus:ring-lime-400/50"
-            />
+          {/* Main Content Card */}
+          <div className="bg-zinc-900/50 backdrop-blur-xl border border-zinc-800 rounded-2xl p-8 space-y-8">
+            <div className="space-y-4">
+              <div className="flex items-center gap-2 text-lime-400 mb-2">
+                <FileText className="w-4 h-4" />
+                <span className="text-xs font-bold uppercase tracking-wider">Podstawowe Informacje</span>
+              </div>
+              <div>
+                <label htmlFor="title" className="block text-sm font-semibold text-zinc-300 mb-2">
+                  Tytuł Wpisu *
+                </label>
+                <input
+                  type="text"
+                  id="title"
+                  name="title"
+                  required
+                  defaultValue={post.title}
+                  className="w-full bg-zinc-800/50 border border-zinc-700/50 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-lime-400 focus:ring-1 focus:ring-lime-400/50 transition-all"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-zinc-300 mb-2">
+                  Treść Artykułu *
+                </label>
+                <div className="bg-zinc-800/30 rounded-xl overflow-hidden border border-zinc-700/50">
+                  <RichTextEditor value={content} onChange={setContent} />
+                </div>
+              </div>
+              
+              <div>
+                <label htmlFor="excerpt" className="block text-sm font-semibold text-zinc-300 mb-2">
+                  Zajawka / Krótki opis
+                </label>
+                <textarea
+                  id="excerpt"
+                  name="excerpt"
+                  rows={4}
+                  defaultValue={post.excerpt || ""}
+                  className="w-full bg-zinc-800/50 border border-zinc-700/50 rounded-xl px-4 py-3.5 text-white placeholder-zinc-500 focus:outline-none focus:border-lime-400 focus:ring-1 focus:ring-lime-400/50 resize-y transition-all"
+                  placeholder="Krótki tekst zachęcający do przeczytania..."
+                />
+              </div>
+            </div>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-zinc-300 mb-2">
-              Treść Artykułu *
-            </label>
-            <RichTextEditor value={content} onChange={setContent} />
-          </div>
-          
-          <div>
-            <label htmlFor="excerpt" className="block text-sm font-medium text-zinc-300 mb-2">
-              Zajawka (Krótki opis widoczny na liście wpisów)
-            </label>
-            <textarea
-              id="excerpt"
-              name="excerpt"
-              rows={3}
-              defaultValue={post.excerpt || ""}
-              className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:border-lime-400 focus:ring-1 focus:ring-lime-400/50 resize-y"
-            />
+          {/* SEO Settings Card */}
+          <div className="bg-zinc-900/50 backdrop-blur-xl border border-zinc-800 rounded-2xl p-8 space-y-6">
+            <div className="flex items-center gap-2 text-lime-400 mb-2">
+              <Globe className="w-4 h-4" />
+              <span className="text-xs font-bold uppercase tracking-wider">Ustawienia SEO</span>
+            </div>
+            <div className="grid grid-cols-1 gap-6">
+              <div>
+                <label htmlFor="seoTitle" className="block text-sm font-semibold text-zinc-300 mb-2">
+                  SEO Tytuł
+                </label>
+                <input
+                  type="text"
+                  id="seoTitle"
+                  name="seoTitle"
+                  defaultValue={post.seoTitle || ""}
+                  className="w-full bg-zinc-800/50 border border-zinc-700/50 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-lime-400 focus:ring-1 focus:ring-lime-400/50 transition-all text-sm"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="seoDescription" className="block text-sm font-semibold text-zinc-300 mb-2">
+                  SEO Opis
+                </label>
+                <textarea
+                  id="seoDescription"
+                  name="seoDescription"
+                  rows={2}
+                  defaultValue={post.seoDescription || ""}
+                  className="w-full bg-zinc-800/50 border border-zinc-700/50 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-lime-400 focus:ring-1 focus:ring-lime-400/50 resize-y transition-all text-sm"
+                />
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 space-y-6">
-          <h2 className="text-xl font-bold text-white pb-2 border-b border-zinc-800">
-            Ustawienia SEO (Pozycjonowanie)
-          </h2>
-          <div>
-            <label htmlFor="seoTitle" className="block text-sm font-medium text-zinc-300 mb-2">
-              SEO Tytuł
-            </label>
-            <input
-              type="text"
-              id="seoTitle"
-              name="seoTitle"
-              defaultValue={post.seoTitle || ""}
-              className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-lime-400 focus:ring-1 focus:ring-lime-400/50"
-            />
+        {/* Sidebar */}
+        <div className="space-y-8">
+          {/* Image Upload/Preview Card */}
+          <div className="bg-zinc-900/50 backdrop-blur-xl border border-zinc-800 rounded-2xl p-6 space-y-6">
+            <div className="flex items-center gap-2 text-lime-400 mb-2">
+              <ImageIcon className="w-4 h-4" />
+              <span className="text-xs font-bold uppercase tracking-wider">Miniaturka Wpisu</span>
+            </div>
+            
+            <div className="aspect-video w-full bg-zinc-800 rounded-xl overflow-hidden border border-zinc-700 flex items-center justify-center relative group">
+              {imageUrl ? (
+                <img 
+                  src={imageUrl} 
+                  alt="Preview" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                />
+              ) : (
+                <div className="text-center p-6">
+                  <ImageIcon className="w-10 h-10 text-zinc-600 mx-auto mb-2" />
+                  <p className="text-xs text-zinc-500">Podaj URL zdjęcia poniżej, aby zobaczyć podgląd</p>
+                </div>
+              )}
+            </div>
+
+            <div>
+              <label htmlFor="imageUrl" className="block text-xs font-bold text-zinc-500 uppercase tracking-widest mb-2">
+                URL Obrazka
+              </label>
+              <input
+                type="text"
+                id="imageUrl"
+                name="imageUrl"
+                value={imageUrl}
+                onChange={(e) => setImageUrl(e.target.value)}
+                placeholder="https://example.com/image.jpg"
+                className="w-full bg-zinc-800/50 border border-zinc-700/50 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-lime-400 transition-all font-mono"
+              />
+            </div>
           </div>
 
-          <div>
-            <label htmlFor="seoDescription" className="block text-sm font-medium text-zinc-300 mb-2">
-              SEO Opis
-            </label>
-            <textarea
-              id="seoDescription"
-              name="seoDescription"
-              rows={2}
-              defaultValue={post.seoDescription || ""}
-              className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-lime-400 focus:ring-1 focus:ring-lime-400/50 resize-y"
-            />
+          {/* Publishing Info Card */}
+          <div className="bg-zinc-900/50 backdrop-blur-xl border border-zinc-800 rounded-2xl p-6 space-y-4">
+             <div className="flex items-center gap-2 text-lime-400 mb-2">
+                <Sparkles className="w-4 h-4" />
+                <span className="text-xs font-bold uppercase tracking-wider">Status Publikacji</span>
+              </div>
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-zinc-400">Status:</span>
+                <span className={`font-bold ${post.publishedAt ? "text-lime-400" : "text-amber-400"}`}>
+                  {post.publishedAt ? "Opublikowany" : "Szkic"}
+                </span>
+              </div>
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-zinc-400">Data utworzenia:</span>
+                <span className="text-zinc-300">{new Date(post.createdAt).toLocaleDateString("pl-PL")}</span>
+              </div>
           </div>
-        </div>
-
-        <div className="flex items-center justify-end gap-4 pt-4 border-t border-zinc-800">
-          <SubmitButton isDraft={!post.publishedAt} />
-          <SubmitButton />
         </div>
       </form>
     </div>
   );
 }
+
