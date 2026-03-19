@@ -64,7 +64,7 @@ export default function LoginPage() {
                   autoComplete="email"
                   required
                   className="block w-full pl-12 bg-gray-50 border-2 border-gray-100 rounded-xl py-3.5 text-gray-900 font-medium placeholder-gray-400 focus:outline-none focus:ring-0 focus:border-red-600 transition-all sm:text-sm"
-                  placeholder="admin@voltage.com"
+                  placeholder="twoj@email.com"
                 />
               </div>
             </div>
@@ -95,11 +95,6 @@ export default function LoginPage() {
             <div className="pt-2">
               <SubmitButton />
             </div>
-            
-            <p className="text-xs text-gray-400 text-center font-medium mt-6">
-              Dane dostępowe dev: <br/>
-              <span className="font-bold text-gray-500">admin@voltage.com</span> / <span className="font-bold text-gray-500">admin123</span>
-            </p>
           </form>
         </div>
       </div>
