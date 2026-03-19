@@ -1,13 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { jwtVerify } from "jose";
 
-const secretKey = process.env.SESSION_SECRET;
-if (!secretKey) {
-  throw new Error("SESSION_SECRET is not defined in environment variables");
-}
-const key = new TextEncoder().encode(secretKey);
-
 export async function middleware(request: NextRequest) {
+  const secretKey = process.env.SESSION_SECRET;
+  if (!secretKey) {
+    throw new Error("SESSION_SECRET is not defined in environment variables");
+  }
+  const key = new TextEncoder().encode(secretKey);
   // Only protect /admin routes
   if (!request.nextUrl.pathname.startsWith("/admin")) {
     return NextResponse.next();
