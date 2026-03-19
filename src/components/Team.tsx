@@ -4,17 +4,12 @@ const team = [
   {
     name: "Bartosz Niewiński",
     role: "Właściciel - VOLTAGE",
-    image: "/images/team/bartosz.jpg",
+    image: "/images/people/bartosz-niewinski.jpg",
   },
   {
     name: "Rafał Majewski",
     role: "Właściciel - Rav Elektro",
-    image: "/images/team/rafal.jpg",
-  },
-  {
-    name: "Jakub Cosel",
-    role: "Manager Robót (Niemcy)",
-    image: "/images/team/jakub.jpg",
+    image: "/images/people/rafal-majewski.jpg",
   },
 ];
 
@@ -29,16 +24,20 @@ export default function Team() {
           <div className="mt-4 w-24 h-1.5 bg-red-600 mx-auto rounded-full" />
         </div>
 
-        <div className="grid md:grid-cols-3 gap-12">
+        <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
           {team.map((member) => (
             <div key={member.name} className="flex flex-col items-center group">
-              <div className="relative w-48 h-48 mb-8 overflow-hidden rounded-full border-4 border-gray-50 shadow-xl group-hover:border-red-600 transition-all duration-500">
-                {/* Fallback pattern if image is missing */}
-                <div className="absolute inset-0 bg-gray-100 flex items-center justify-center text-gray-300">
+              <div className="relative w-56 h-56 mb-8 overflow-hidden rounded-full border-4 border-gray-50 shadow-xl group-hover:border-red-600 group-hover:scale-105 transition-all duration-500">
+                <Image
+                  src={member.image}
+                  alt={member.name}
+                  fill
+                  className="object-cover object-top transition-transform duration-700 group-hover:scale-110"
+                />
+                {/* Fallback if image fails to load */}
+                <div className="absolute inset-0 bg-gray-100 flex items-center justify-center text-gray-300 -z-10">
                   <span className="text-4xl font-black">{member.name[0]}</span>
                 </div>
-                {/* Real image if exists - using placeholder logic for now since I don't see images in project */}
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-50" />
               </div>
               <h3 className="text-2xl font-black text-gray-900 mb-2">
                 {member.name}

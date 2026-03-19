@@ -53,10 +53,10 @@ export default function Hero() {
               </span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold text-gray-900 leading-[1.1] tracking-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-5xl font-extrabold text-gray-900 leading-tight tracking-tight max-w-2xl">
               Kompleksowe Instalacje <br />
               <span className="text-red-600">Elektryczne</span> <br />
-              <span className="text-gray-800 tracking-tighter">& Elektroenergetyczne</span>
+              <span className="text-gray-800 text-3xl sm:text-4xl lg:text-4xl">& Elektroenergetyczne</span>
             </h1>
 
             <p className="mt-8 text-xl text-gray-600 leading-relaxed max-w-xl">
@@ -90,7 +90,8 @@ export default function Hero() {
                 <p className="text-sm font-bold text-gray-500 uppercase">Realizacji</p>
               </div>
               <div className="col-span-2 sm:col-span-1">
-                <p className="text-3xl font-black text-red-600 font-serif italic text-sm">JAKOŚĆ & BEZPIECZEŃSTWO</p>
+                <p className="text-xl font-black text-red-600 uppercase tracking-tighter leading-none">JAKOŚĆ & BEZPIECZEŃSTWO</p>
+                <p className="text-sm font-bold text-gray-500 uppercase mt-1">Bez kompromisów</p>
               </div>
             </div>
           </div>

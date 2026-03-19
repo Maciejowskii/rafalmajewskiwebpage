@@ -1,7 +1,5 @@
-"use client";
-
-import { Zap, Phone, Mail, MapPin, Send } from "lucide-react";
-import { useState } from "react";
+import { Zap, Phone, Mail, MapPin } from "lucide-react";
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -86,8 +84,8 @@ export default function Footer() {
         <div className="mt-20 pt-8 border-t border-gray-800 flex flex-col sm:flex-row justify-between items-center gap-4 text-gray-500 text-xs">
           <p>© {new Date().getFullYear()} Voltage & Rav Elektro. Wszelkie prawa zastrzeżone.</p>
           <div className="flex gap-6 font-bold uppercase tracking-tighter">
-            <a href="#" className="hover:text-white transition-colors">Polityka prywatności</a>
-            <a href="#" className="hover:text-white transition-colors">Cookies</a>
+            <Link href="/polityka-prywatnosci" className="hover:text-white transition-colors">Polityka prywatności</Link>
+            <Link href="/cookies" className="hover:text-white transition-colors">Cookies</Link>
           </div>
         </div>
       </div>
