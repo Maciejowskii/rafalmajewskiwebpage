@@ -16,14 +16,14 @@ function SubmitButton({ isDraft, isSecondary }: { isDraft?: boolean; isSecondary
       name="status"
       value={isDraft ? "draft" : "published"}
       disabled={pending}
-      className={`px-6 py-2.5 rounded-xl font-bold flex items-center gap-2 transition-all disabled:opacity-50 active:scale-95 ${
+      className={`px-8 py-4 rounded-xl font-black flex items-center gap-3 transition-all duration-300 disabled:opacity-50 active:scale-95 shadow-lg uppercase tracking-widest text-xs ${
         isSecondary
-          ? "bg-zinc-800 text-zinc-300 hover:bg-zinc-700 hover:text-white border border-zinc-700" 
-          : "bg-lime-400 text-zinc-900 hover:bg-lime-300 shadow-lg shadow-lime-400/20"
+          ? "bg-white text-gray-600 hover:text-red-600 border-2 border-gray-100 hover:border-red-100" 
+          : "bg-red-600 text-white hover:bg-red-700 hover:shadow-red-600/20"
       }`}
     >
       <Save className="w-4 h-4" />
-      {pending ? "Zapisywanie..." : (isDraft ? "Zapisz jako Szkic" : "Opublikuj Artykuł")}
+      {pending ? "Zapisywanie..." : (isDraft ? "Szkic" : "Opublikuj")}
     </button>
   );
 }
@@ -43,45 +43,45 @@ export default function NewPostPage() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto pb-12">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
-        <div className="flex items-center gap-4">
+    <div className="max-w-5xl mx-auto pb-20">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-12">
+        <div className="flex items-center gap-6">
           <Link
             href="/admin/posts"
-            className="w-12 h-12 bg-zinc-900 border border-zinc-800 rounded-xl flex items-center justify-center text-zinc-400 hover:text-white hover:border-zinc-700 transition-all hover:bg-zinc-800"
+            className="w-14 h-14 bg-white border border-gray-100 rounded-2xl flex items-center justify-center text-gray-400 hover:text-red-600 hover:border-red-100 transition-all hover:shadow-lg shadow-sm"
           >
             <ArrowLeft className="w-6 h-6" />
           </Link>
           <div>
-            <h1 className="text-4xl font-black text-white tracking-tight">Nowy Wpis</h1>
-            <p className="text-zinc-500 mt-1">Stwórz nową treść dla swojej witryny.</p>
+            <h1 className="text-4xl font-black text-gray-900 tracking-tight">Nowy Wpis</h1>
+            <p className="text-gray-500 mt-1 font-medium">Stwórz nową treść dla swojej witryny</p>
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
           <SubmitButton isSecondary isDraft />
           <SubmitButton />
         </div>
       </div>
 
-      <form action={handleAction} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 space-y-8">
+      <form action={handleAction} className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+        <div className="lg:col-span-2 space-y-10">
           {error && (
-            <div className="bg-red-500/10 border border-red-500/30 text-red-500 p-4 rounded-xl flex items-center gap-3 animate-in fade-in slide-in-from-top-2">
-              <div className="w-2 h-2 rounded-full bg-red-500" />
-              <p className="text-sm font-medium">{error}</p>
+            <div className="bg-red-50 border-2 border-red-100 text-red-600 p-5 rounded-2xl flex items-center gap-4 animate-in fade-in slide-in-from-top-2">
+              <div className="w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse" />
+              <p className="text-sm font-bold">{error}</p>
             </div>
           )}
 
           {/* Main Content Card */}
-          <div className="bg-zinc-900/50 backdrop-blur-xl border border-zinc-800 rounded-2xl p-8 space-y-8 shadow-2xl">
-            <div className="space-y-4">
-              <div className="flex items-center gap-2 text-lime-400 mb-2">
-                <FileText className="w-4 h-4" />
-                <span className="text-xs font-bold uppercase tracking-wider">Podstawowe Informacje</span>
+          <div className="bg-white border border-gray-100 rounded-3xl p-10 space-y-10 shadow-sm">
+            <div className="space-y-6">
+              <div className="flex items-center gap-2 text-red-600 mb-2">
+                <FileText className="w-5 h-5" />
+                <span className="text-xs font-black uppercase tracking-widest">Podstawowe Informacje</span>
               </div>
-              <div>
-                <label htmlFor="title" className="block text-sm font-semibold text-zinc-300 mb-2">
+              <div className="space-y-2">
+                <label htmlFor="title" className="block text-sm font-bold text-gray-700 ml-1">
                   Tytuł Wpisu *
                 </label>
                 <input
@@ -90,28 +90,28 @@ export default function NewPostPage() {
                   name="title"
                   required
                   placeholder="Jak wybrać instalację fotowoltaiczną?"
-                  className="w-full bg-zinc-800/50 border border-zinc-700/50 rounded-xl px-4 py-3.5 text-white placeholder-zinc-600 focus:outline-none focus:border-lime-400 focus:ring-1 focus:ring-lime-400/50 transition-all"
+                  className="w-full bg-gray-50 border-2 border-gray-50 rounded-2xl px-5 py-4 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-red-600 focus:bg-white transition-all font-medium"
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-semibold text-zinc-300 mb-2">
+              <div className="space-y-2">
+                <label className="block text-sm font-bold text-gray-700 ml-1">
                   Treść Artykułu *
                 </label>
-                <div className="bg-zinc-800/30 rounded-xl overflow-hidden border border-zinc-700/50">
+                <div className="bg-white rounded-2xl overflow-hidden border-2 border-gray-50 focus-within:border-red-600 transition-all">
                   <RichTextEditor value={content} onChange={setContent} />
                 </div>
               </div>
               
-              <div>
-                <label htmlFor="excerpt" className="block text-sm font-semibold text-zinc-300 mb-2">
+              <div className="space-y-2">
+                <label htmlFor="excerpt" className="block text-sm font-bold text-gray-700 ml-1">
                   Zajawka / Krótki opis
                 </label>
                 <textarea
                   id="excerpt"
                   name="excerpt"
                   rows={4}
-                  className="w-full bg-zinc-800/50 border border-zinc-700/50 rounded-xl px-4 py-3.5 text-white placeholder-zinc-600 focus:outline-none focus:border-lime-400 focus:ring-1 focus:ring-lime-400/50 resize-y transition-all"
+                  className="w-full bg-gray-50 border-2 border-gray-50 rounded-2xl px-5 py-4 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-red-600 focus:bg-white resize-y transition-all font-medium"
                   placeholder="Krótki tekst zachęcający do przeczytania, widoczny na liście wpisów..."
                 />
               </div>
@@ -119,14 +119,14 @@ export default function NewPostPage() {
           </div>
 
           {/* SEO Settings Card */}
-          <div className="bg-zinc-900/50 backdrop-blur-xl border border-zinc-800 rounded-2xl p-8 space-y-6">
-            <div className="flex items-center gap-2 text-lime-400 mb-2">
-              <Globe className="w-4 h-4" />
-              <span className="text-xs font-bold uppercase tracking-wider">Ustawienia SEO</span>
+          <div className="bg-white border border-gray-100 rounded-3xl p-10 space-y-8 shadow-sm">
+            <div className="flex items-center gap-2 text-red-600 mb-2">
+              <Globe className="w-5 h-5" />
+              <span className="text-xs font-black uppercase tracking-widest">Ustawienia SEO</span>
             </div>
-            <div className="grid grid-cols-1 gap-6">
-              <div>
-                <label htmlFor="seoTitle" className="block text-sm font-semibold text-zinc-300 mb-2">
+            <div className="grid grid-cols-1 gap-8">
+              <div className="space-y-2">
+                <label htmlFor="seoTitle" className="block text-sm font-bold text-gray-700 ml-1">
                   SEO Tytuł (Meta Title)
                 </label>
                 <input
@@ -134,12 +134,12 @@ export default function NewPostPage() {
                   id="seoTitle"
                   name="seoTitle"
                   placeholder="Domyślnie użyje tytułu wpisu"
-                  className="w-full bg-zinc-800/50 border border-zinc-700/50 rounded-xl px-4 py-3.5 text-white placeholder-zinc-600 focus:outline-none focus:border-lime-400 focus:ring-1 focus:ring-lime-400/50 transition-all text-sm"
+                  className="w-full bg-gray-50 border-2 border-gray-50 rounded-2xl px-5 py-4 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-red-600 focus:bg-white transition-all text-sm font-medium"
                 />
               </div>
 
-              <div>
-                <label htmlFor="seoDescription" className="block text-sm font-semibold text-zinc-300 mb-2">
+              <div className="space-y-2">
+                <label htmlFor="seoDescription" className="block text-sm font-bold text-gray-700 ml-1">
                   SEO Opis (Meta Description)
                 </label>
                 <textarea
@@ -147,7 +147,7 @@ export default function NewPostPage() {
                   name="seoDescription"
                   rows={2}
                   placeholder="Domyślnie użyje zajawki"
-                  className="w-full bg-zinc-800/50 border border-zinc-700/50 rounded-xl px-4 py-3.5 text-white placeholder-zinc-600 focus:outline-none focus:border-lime-400 focus:ring-1 focus:ring-lime-400/50 resize-y transition-all text-sm"
+                  className="w-full bg-gray-50 border-2 border-gray-50 rounded-2xl px-5 py-4 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-red-600 focus:bg-white resize-y transition-all text-sm font-medium"
                 />
               </div>
             </div>
@@ -155,33 +155,33 @@ export default function NewPostPage() {
         </div>
 
         {/* Sidebar */}
-        <div className="space-y-8">
+        <div className="space-y-10">
           {/* Image Upload/Preview Card */}
-          <div className="bg-zinc-900/50 backdrop-blur-xl border border-zinc-800 rounded-2xl p-6 space-y-6 shadow-xl">
-            <div className="flex items-center gap-2 text-lime-400 mb-2">
-              <ImageIcon className="w-4 h-4" />
-              <span className="text-xs font-bold uppercase tracking-wider">Miniaturka Wpisu</span>
+          <div className="bg-white border border-gray-100 rounded-3xl p-8 space-y-8 shadow-sm sticky top-8">
+            <div className="flex items-center gap-2 text-red-600 mb-2">
+              <ImageIcon className="w-5 h-5" />
+              <span className="text-xs font-black uppercase tracking-widest">Miniaturka Wpisu</span>
             </div>
             
-            <div className="aspect-video w-full bg-zinc-800 rounded-xl overflow-hidden border border-zinc-700 flex items-center justify-center relative group">
+            <div className="aspect-video w-full bg-gray-50 rounded-2xl overflow-hidden border-2 border-gray-50 flex items-center justify-center relative group">
               {imageUrl ? (
                 <img 
                   src={imageUrl} 
                   alt="Preview" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
                 />
               ) : (
                 <div className="text-center p-6">
-                  <div className="w-16 h-16 bg-zinc-900 rounded-full flex items-center justify-center mx-auto mb-4 border border-zinc-800">
-                    <ImageIcon className="w-8 h-8 text-zinc-700" />
+                  <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-sm border border-gray-50">
+                    <ImageIcon className="w-8 h-8 text-gray-200" />
                   </div>
-                  <p className="text-xs text-zinc-500 max-w-[140px] mx-auto">Wklej URL zdjęcia poniżej aby zobaczyć podgląd</p>
+                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider max-w-[140px] mx-auto">Wklej URL zdjęcia poniżej</p>
                 </div>
               )}
             </div>
 
-            <div>
-              <label htmlFor="imageUrl" className="block text-xs font-bold text-zinc-500 uppercase tracking-widest mb-2">
+            <div className="space-y-3">
+              <label htmlFor="imageUrl" className="block text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1">
                 URL Obrazka
               </label>
               <input
@@ -191,19 +191,19 @@ export default function NewPostPage() {
                 value={imageUrl}
                 onChange={(e) => setImageUrl(e.target.value)}
                 placeholder="https://images.unsplash.com/..."
-                className="w-full bg-zinc-800/50 border border-zinc-700/50 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-lime-400 transition-all font-mono"
+                className="w-full bg-gray-50 border-2 border-gray-50 rounded-xl px-4 py-3.5 text-gray-900 text-xs focus:outline-none focus:border-red-600 focus:bg-white transition-all font-mono"
               />
             </div>
-          </div>
 
-          <div className="bg-lime-400/5 border border-lime-400/10 rounded-2xl p-6 space-y-4">
-             <div className="flex items-center gap-2 text-lime-400 mb-1">
-                <Sparkles className="w-4 h-4" />
-                <span className="text-xs font-bold uppercase tracking-wider">Wskazówka</span>
-              </div>
-              <p className="text-xs text-zinc-400 leading-relaxed">
-                Pamiętaj o dodaniu odpowiednich tagów SEO. Dobrze sformatowany artykuł z miniaturką ma większą szansę na wysoką pozycję w Google.
-              </p>
+            <div className="bg-red-50/50 border border-red-100 rounded-2xl p-6 space-y-3">
+               <div className="flex items-center gap-2 text-red-600 mb-1">
+                  <Sparkles className="w-4 h-4" />
+                  <span className="text-[10px] font-black uppercase tracking-wider">Wskazówka</span>
+                </div>
+                <p className="text-[11px] text-gray-500 leading-relaxed font-medium">
+                  Pamiętaj o dodaniu odpowiednich tagów SEO. Dobrze sformatowany artykuł z miniaturką ma większą szansę na wysoką pozycję.
+                </p>
+            </div>
           </div>
         </div>
       </form>

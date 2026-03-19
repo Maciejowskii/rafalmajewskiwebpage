@@ -25,10 +25,10 @@ export default function DeletePostButton({ id }: { id: string }) {
     <button
       onClick={handleDelete}
       disabled={isDeleting}
-      className="p-2 text-zinc-400 hover:text-red-400 hover:bg-zinc-700 rounded-lg transition-colors disabled:opacity-50"
+      className="p-2.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all duration-200 disabled:opacity-50"
       title="Usuń"
     >
-      <Trash2 className="w-4 h-4" />
+      <Trash2 className="w-5 h-5 transition-transform group-hover:scale-110" />
     </button>
   );
 }

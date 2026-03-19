@@ -16,15 +16,16 @@ export async function loginAction(prevState: any, formData: FormData) {
   console.log("[DEBUG_ACTION] email:", email);
   console.log("[DEBUG_ACTION] prisma defined?:", !!prisma);
 
-  // Auto-seed admin user if DB is empty (only for development/testing ease)
-  const usersCount = await prisma.user.count();
-  if (usersCount === 0 && email === "admin@voltage.com" && password === "admin123") {
-     const hashedPassword = await bcrypt.hash(password, 10);
-     await prisma.user.create({
-       data: { email, password: hashedPassword, name: "Admin Setup" }
-     });
+  // Priority: Check .env credentials for simple setup
+  const envEmail = process.env.ADMIN_EMAIL;
+  const envPassword = process.env.ADMIN_PASSWORD;
+
+  if (envEmail && envPassword && email === envEmail && password === envPassword) {
+    await setSession("admin_env_user");
+    redirect("/admin/dashboard");
   }
 
+  // Fallback: Check database for users
   const user = await prisma.user.findUnique({
     where: { email },
   });

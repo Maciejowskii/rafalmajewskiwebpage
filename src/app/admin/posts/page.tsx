@@ -23,62 +23,74 @@ export default async function PostsPage() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold text-white">Wszystkie Wpisy ({posts.length})</h1>
+      <div className="flex justify-between items-center mb-10">
+        <h1 className="text-4xl font-black text-gray-900 tracking-tight">
+          Wszystkie Wpisy <span className="text-red-600">({posts.length})</span>
+        </h1>
         <Link
           href="/admin/posts/new"
-          className="bg-lime-400 hover:bg-lime-300 transition-colors text-zinc-900 font-bold px-4 py-2 rounded-lg flex items-center gap-2"
+          className="bg-red-600 hover:bg-red-700 transition-all duration-300 text-white font-black px-8 py-4 rounded-xl flex items-center gap-3 shadow-lg hover:shadow-red-600/20 active:scale-95"
         >
-          <Plus className="w-5 h-5" />
+          <Plus className="w-5 h-5 shadow-sm" />
           Dodaj wpis
         </Link>
       </div>
 
-      <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden">
+      <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="bg-zinc-800/50 border-b border-zinc-800 text-zinc-400 text-sm">
-              <th className="p-4 font-medium">Tytuł</th>
-              <th className="p-4 font-medium">Status</th>
-              <th className="p-4 font-medium">Data Wpisu</th>
-              <th className="p-4 font-medium text-right">Akcje</th>
+            <tr className="bg-gray-50/50 border-b border-gray-50 text-gray-400 text-xs font-bold uppercase tracking-widest">
+              <th className="p-6">Tytuł</th>
+              <th className="p-6">Status</th>
+              <th className="p-6">Data Wpisu</th>
+              <th className="p-6 text-right">Akcje</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-zinc-800 text-sm">
+          <tbody className="divide-y divide-gray-50 text-sm">
             {posts.length === 0 ? (
               <tr>
-                <td colSpan={4} className="p-8 text-center text-zinc-500">
+                <td colSpan={4} className="p-12 text-center text-gray-400 font-medium">
                   Brak wpisów. Kliknij "Dodaj wpis", aby rozpocząć.
                 </td>
               </tr>
             ) : (
               posts.map((post) => (
-                <tr key={post.id} className="hover:bg-zinc-800/30 transition-colors group">
-                  <td className="p-4">
-                    <div className="text-white font-medium mb-1">{post.title}</div>
-                    <div className="text-zinc-500 text-xs">/{post.slug}</div>
+                <tr key={post.id} className="hover:bg-gray-50/50 transition-colors group">
+                  <td className="p-6">
+                    <div className="text-gray-900 font-bold text-lg mb-1 group-hover:text-red-600 transition-colors">{post.title}</div>
+                    <div className="text-gray-400 text-xs font-medium tracking-tight">/{post.slug}</div>
                   </td>
-                  <td className="p-4">
+                  <td className="p-6">
                     {post.publishedAt ? (
-                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-lime-400/10 text-lime-400 border border-lime-400/20">
+                      <span className="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-red-50 text-red-600 border border-red-100">
                         Opublikowany
                       </span>
                     ) : (
-                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-zinc-800 text-zinc-400 border border-zinc-700">
+                      <span className="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-gray-100 text-gray-500 border border-gray-200">
                         Szkic
                       </span>
                     )}
                   </td>
-                  <td className="p-4 text-zinc-400">
+                  <td className="p-6 text-gray-500 font-medium">
                     {new Date(post.createdAt).toLocaleDateString("pl-PL")}
                   </td>
-                  <td className="p-4 text-right">
-                    <div className="flex items-center justify-end gap-2 opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity">
-                      <a href={`/blog/${post.slug}`} target="_blank" rel="noreferrer" className="p-2 text-zinc-400 hover:text-white hover:bg-zinc-700 rounded-lg transition-colors" title="Zobacz na żywo">
-                        <Eye className="w-4 h-4" />
+                  <td className="p-6 text-right">
+                    <div className="flex items-center justify-end gap-2">
+                      <a 
+                        href={`/blog/${post.slug}`} 
+                        target="_blank" 
+                        rel="noreferrer" 
+                        className="p-2.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all duration-200" 
+                        title="Zobacz na żywo"
+                      >
+                        <Eye className="w-5 h-5" />
                       </a>
-                      <Link href={`/admin/posts/${post.id}/edit`} className="p-2 text-zinc-400 hover:text-lime-400 hover:bg-zinc-700 rounded-lg transition-colors" title="Edytuj">
-                        <Edit2 className="w-4 h-4" />
+                      <Link 
+                        href={`/admin/posts/${post.id}/edit`} 
+                        className="p-2.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all duration-200" 
+                        title="Edytuj"
+                      >
+                        <Edit2 className="w-5 h-5" />
                       </Link>
                       <DeletePostButton id={post.id} />
                     </div>

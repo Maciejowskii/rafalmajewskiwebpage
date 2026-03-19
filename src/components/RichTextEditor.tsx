@@ -16,13 +16,13 @@ export default function RichTextEditor({ value, onChange }: { value: string, onC
   };
 
   return (
-    <div className="bg-white text-zinc-900 rounded-lg overflow-hidden border border-zinc-700">
+    <div className="bg-white text-gray-900 overflow-hidden">
       <ReactQuill 
         theme="snow" 
         value={value} 
         onChange={onChange} 
         modules={modules}
-        className="h-64 mb-12"
+        className="h-80 mb-12"
       />
     </div>
   );
