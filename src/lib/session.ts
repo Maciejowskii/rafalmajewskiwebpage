@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 function getKey() {
   const secretKey = process.env.SESSION_SECRET;
   if (!secretKey) {
-    throw new Error("SESSION_SECRET is not defined in environment variables");
+    throw new Error("CRITICAL: SESSION_SECRET is not defined. Please set it in your environment variables (Vercel/Server Settings).");
   }
   return new TextEncoder().encode(secretKey);
 }

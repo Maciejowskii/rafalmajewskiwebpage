@@ -21,7 +21,19 @@ export async function loginAction(prevState: any, formData: FormData) {
   const envPassword = process.env.ADMIN_PASSWORD;
 
   if (envEmail && envPassword && email === envEmail && password === envPassword) {
-    await setSession("admin_env_user");
+    // Upsert the admin user in the database to ensure we have a valid ID for relations (posts)
+    const hashedPassword = await bcrypt.hash(envPassword, 10);
+    const dbUser = await prisma.user.upsert({
+      where: { email: envEmail },
+      update: { name: "Admin (ENV)" },
+      create: { 
+        email: envEmail, 
+        password: hashedPassword, 
+        name: "Admin (ENV)" 
+      },
+    });
+
+    await setSession(dbUser.id);
     redirect("/admin/dashboard");
   }
 
