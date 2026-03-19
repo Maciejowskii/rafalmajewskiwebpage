@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, Clock, User } from "lucide-react";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -17,9 +19,10 @@ const MOCK_POSTS = [
     publishedAt: new Date("2026-03-01"),
     updatedAt: new Date("2026-03-01"),
     excerpt: "Wybór odpowiednich paneli fotowoltaicznych to klucz do sukcesu każdej inwestycji w OZE. Sprawdź na co zwrócić uwagę.",
+    imageUrl: "/images/projects/baltin-sun.jpg",
     seoTitle: "Najlepsze panele fotowoltaiczne 2026 | Poradnik VOLTAGE",
     seoDescription: "Dowiedz się jakie panele fotowoltaiczne wybrać w 2026 roku. Przewodnik po technologiach i producentach.",
-    author: { name: "Maciej Kowalski" }
+    author: { name: "Bartosz Niewiński" }
   },
   { 
     id: "2", 
@@ -29,6 +32,7 @@ const MOCK_POSTS = [
     publishedAt: new Date("2026-02-15"),
     updatedAt: new Date("2026-02-15"),
     excerpt: "Regularne przeglądy i pomiary instalacji elektrycznej mogą uratować życie i mienie. Dowiedz się jak często należy je wykonywać.",
+    imageUrl: "/images/projects/gea.jpg",
     author: { name: "Rafał Majewski" }
   },
   { 
@@ -39,7 +43,8 @@ const MOCK_POSTS = [
     publishedAt: new Date("2026-01-20"),
     updatedAt: new Date("2026-01-20"),
     excerpt: "Planujesz budowę lub remont i marzysz o inteligentnym domu? Podpowiadamy, które elementy systemu są najważniejsze na start.",
-    author: { name: "Jan Nowak" }
+    imageUrl: "/images/projects/origami-project.jpg",
+    author: { name: "Jakub Cosel" }
   },
 ];
 
@@ -60,8 +65,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: post.seoTitle || `${post.title} | Blog VOLTAGE`,
-    description: post.seoDescription || post.excerpt || "Przeczytaj artykuł na blogu VOLTAGE.",
+    title: post.seoTitle || `${post.title} | Blog Voltage & Rav Elektro`,
+    description: post.seoDescription || post.excerpt || "Przeczytaj artykuł na blogu Voltage & Rav Elektro.",
   };
 }
 
@@ -98,69 +103,75 @@ export default async function BlogPostPage({ params }: Props) {
   };
 
   return (
-    <article className="bg-zinc-950 min-h-screen pt-24 pb-20">
-      {/* JSON-LD Script for Google */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Link 
-          href="/blog" 
-          className="inline-flex items-center text-zinc-500 hover:text-lime-400 mb-8 transition-colors gap-2 text-sm font-medium"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Wróć do listy wpisów
-        </Link>
-
-        <header className="mb-12 border-b border-zinc-800 pb-8">
-          {post.imageUrl && (
-            <div className="aspect-[21/9] w-full bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 mb-10 shadow-2xl">
-              <img 
-                src={post.imageUrl} 
-                alt={post.title} 
-                className="w-full h-full object-cover"
-              />
-            </div>
-          )}
-
-          <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight mb-6">
-            {post.title}
-          </h1>
-
-          <div className="flex flex-wrap items-center gap-6 text-sm text-zinc-400">
-            <div className="flex items-center gap-2">
-              <User className="w-4 h-4 text-lime-400" />
-              <span>{post.author?.name || "Zespół VOLTAGE"}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Clock className="w-4 h-4 text-lime-400" />
-              <time dateTime={post.publishedAt.toISOString()}>
-                {new Date(post.publishedAt).toLocaleDateString("pl-PL", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </time>
-            </div>
-          </div>
-        </header>
-
-        {/* Post Content - rendering the HTML generated from react-quill */}
-        <div 
-          className="prose prose-invert prose-lime max-w-none prose-p:text-zinc-300 prose-headings:text-white prose-a:text-lime-400 hover:prose-a:text-lime-300"
-          dangerouslySetInnerHTML={{ __html: post.content }}
+    <>
+      <Header />
+      <article className="bg-white min-h-screen pt-32 pb-20">
+        {/* JSON-LD Script for Google */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
 
-        {/* Footer info / tags could go here */}
-        <div className="mt-16 pt-8 border-t border-zinc-800 flex justify-between items-center">
-          <span className="text-zinc-500 text-sm">Zakończenie artykułu</span>
-          <Link href="/blog" className="px-6 py-2.5 bg-zinc-900 border border-zinc-800 hover:border-lime-400 hover:text-lime-400 text-zinc-300 rounded-lg transition-colors font-medium">
-            Więcej wpisów
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Link 
+            href="/blog" 
+            className="inline-flex items-center text-gray-500 hover:text-red-600 mb-8 transition-colors gap-2 text-sm font-bold uppercase tracking-wider"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Wróć do listy wpisów
           </Link>
+
+          <header className="mb-12 border-b border-gray-100 pb-12">
+            {post.imageUrl && (
+              <div className="aspect-[21/9] w-full bg-gray-100 rounded-3xl overflow-hidden border border-gray-100 mb-12 shadow-xl">
+                <img 
+                  src={post.imageUrl} 
+                  alt={post.title} 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            )}
+
+            <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 tracking-tight leading-tight mb-8">
+              {post.title}
+            </h1>
+
+            <div className="flex flex-wrap items-center gap-8 text-sm font-bold uppercase tracking-wider text-gray-500">
+              <div className="flex items-center gap-2">
+                <User className="w-4 h-4 text-red-600" />
+                <span>{post.author?.name || "Zespół Voltage"}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Clock className="w-4 h-4 text-red-600" />
+                <time dateTime={post.publishedAt.toISOString()}>
+                  {new Date(post.publishedAt).toLocaleDateString("pl-PL", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </time>
+              </div>
+            </div>
+          </header>
+
+          {/* Post Content */}
+          <div 
+            className="prose prose-lg prose-red max-w-none text-gray-700 prose-headings:text-gray-900 prose-headings:font-black prose-a:text-red-600 hover:prose-a:text-red-700"
+            dangerouslySetInnerHTML={{ __html: post.content }}
+          />
+
+          <div className="mt-20 pt-10 border-t border-gray-100 flex flex-col sm:flex-row justify-between items-center gap-6">
+            <span className="text-gray-400 text-sm font-medium italic">Koniec artykułu</span>
+            <Link 
+              href="/blog" 
+              className="px-10 py-4 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-all duration-300 font-bold shadow-lg hover:shadow-xl active:scale-95"
+            >
+              Zobacz więcej wpisów
+            </Link>
+          </div>
         </div>
-      </div>
-    </article>
+      </article>
+      <Footer />
+    </>
   );
 }

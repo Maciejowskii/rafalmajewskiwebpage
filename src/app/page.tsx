@@ -5,6 +5,7 @@ import ServicesGrid from "@/components/ServicesGrid";
 import Team from "@/components/Team";
 import LogoMarquee from "@/components/LogoMarquee";
 import Pricing from "@/components/Pricing";
+import BlogSection from "@/components/BlogSection";
 import AreaOfOperation from "@/components/AreaOfOperation";
 import Footer from "@/components/Footer";
 
@@ -19,6 +20,7 @@ export default function Home() {
         <Team />
         <LogoMarquee />
         <Pricing />
+        <BlogSection />
         <AreaOfOperation />
       </main>
       <Footer />
