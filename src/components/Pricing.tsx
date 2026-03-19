@@ -87,34 +87,26 @@ const pricingCategories: PricingCategory[] = [
 
 export default function Pricing() {
   return (
-    <section id="cennik" className="bg-zinc-900 relative overflow-hidden">
-      {/* Decorative glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-lime-400/5 rounded-full blur-[100px] pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 relative z-10">
-        <div className="text-center mb-14">
-          <span className="text-lime-400 font-semibold text-sm uppercase tracking-widest">
-            Cennik
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mt-3">
-            Ceny orientacyjne usług
+    <section id="cennik" className="bg-gray-50 py-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-gray-900 tracking-tight">
+            Przykładowe ceny usług
           </h2>
-          <p className="text-zinc-400 mt-4 max-w-2xl mx-auto text-sm leading-relaxed">
-            Podane ceny mają charakter orientacyjny i mogą się różnić w
-            zależności od zakresu prac, rodzaju instalacji oraz lokalizacji
-            inwestycji. W celu przygotowania dokładnej wyceny zapraszamy do
-            kontaktu w której zostanie przedstawiona indywidualna wycena dla państwa.
+          <div className="mt-4 w-24 h-1.5 bg-red-600 mx-auto rounded-full" />
+          <p className="text-gray-500 mt-6 max-w-2xl mx-auto text-lg">
+            Podane ceny mają charakter orientacyjny. Zapraszamy do kontaktu w celu przygotowania indywidualnej wyceny.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          {pricingCategories.map((category, i) => (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {pricingCategories.slice(0, 6).map((category, i) => (
             <div
               key={i}
-              className="bg-zinc-800/50 backdrop-blur border border-zinc-700/50 rounded-2xl overflow-hidden flex flex-col"
+              className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col hover:shadow-md transition-shadow"
             >
-              <div className="bg-zinc-800/80 px-6 py-4 border-b border-zinc-700/50">
-                <h3 className="text-lime-400 font-bold text-lg">
+              <div className="bg-gray-900 px-6 py-4">
+                <h3 className="text-white font-bold text-lg">
                   {category.title}
                 </h3>
               </div>
@@ -122,12 +114,12 @@ export default function Pricing() {
                 {category.items.map((item, j) => (
                   <div
                     key={j}
-                    className="flex items-center justify-between text-sm sm:text-base gap-4"
+                    className="flex items-center justify-between text-base gap-4 border-b border-gray-50 pb-2 last:border-0"
                   >
-                    <span className="text-zinc-300 font-medium leading-tight">
+                    <span className="text-gray-600 font-medium">
                       {item.name}
                     </span>
-                    <span className="text-white font-bold whitespace-nowrap">
+                    <span className="text-red-600 font-bold whitespace-nowrap">
                       {item.price}
                     </span>
                   </div>
@@ -137,13 +129,13 @@ export default function Pricing() {
           ))}
         </div>
 
-        <div className="text-center mt-12">
+        <div className="text-center mt-16">
           <a
             href="#kontakt"
-            className="inline-flex items-center gap-2 bg-lime-400 hover:bg-lime-300 text-zinc-900 font-semibold px-8 py-4 rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-lime-400/25 group text-lg"
+            className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold px-10 py-5 rounded-md transition-all duration-200 shadow-xl hover:shadow-red-600/30 group text-xl"
           >
-            Skontaktuj się po indywidualną wycenę
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            Darmowa wycena
+            <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
           </a>
         </div>
       </div>

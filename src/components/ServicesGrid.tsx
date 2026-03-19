@@ -42,34 +42,31 @@ const services = [
 
 export default function ServicesGrid() {
   return (
-    <section id="uslugi" className="bg-green-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
-        <div className="text-center mb-14">
-          <span className="text-lime-600 font-semibold text-sm uppercase tracking-widest">
-            Oferta
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 mt-3">
+    <section id="uslugi" className="bg-gray-50 py-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-gray-900 tracking-tight">
             Zakres naszych usług
           </h2>
-          <p className="text-zinc-500 mt-4 max-w-2xl mx-auto">
-            Oferujemy pełen zakres usług elektrycznych i elektroenergetycznych
-            dla klientów indywidualnych oraz biznesowych.
-          </p>
+          <div className="mt-4 w-24 h-1.5 bg-red-600 mx-auto rounded-full" />
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, i) => (
             <div
               key={i}
-              className="bg-white rounded-2xl p-7 shadow-sm border border-stone-100 hover:shadow-lg hover:border-lime-200 hover:-translate-y-1 transition-all duration-300 group"
+              className="relative bg-white rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 group overflow-hidden"
             >
-              <div className="w-12 h-12 bg-lime-400/15 rounded-xl flex items-center justify-center mb-5 group-hover:bg-lime-400 transition-colors duration-300">
-                <service.icon className="w-6 h-6 text-lime-600 group-hover:text-zinc-900 transition-colors duration-300" />
+              {/* Red accent line at top */}
+              <div className="absolute top-0 left-0 w-full h-1 bg-red-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+              
+              <div className="w-14 h-14 bg-red-50 rounded-lg flex items-center justify-center mb-6 group-hover:bg-red-600 transition-colors duration-300">
+                <service.icon className="w-7 h-7 text-red-600 group-hover:text-white transition-colors duration-300" />
               </div>
-              <h3 className="text-zinc-900 font-semibold text-lg">
+              <h3 className="text-xl font-bold text-gray-900 mb-3">
                 {service.title}
               </h3>
-              <p className="text-zinc-500 text-sm mt-2 leading-relaxed">
+              <p className="text-gray-600 text-sm leading-relaxed">
                 {service.desc}
               </p>
             </div>

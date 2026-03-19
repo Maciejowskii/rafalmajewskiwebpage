@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, Phone } from "lucide-react";
+import { ArrowRight, Phone, Zap } from "lucide-react";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
@@ -33,135 +33,106 @@ export default function Hero() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
-    }, 4000); // Change image every 4 seconds
-
+    }, 5000);
     return () => clearInterval(timer);
   }, []);
 
   return (
-    <section className="relative bg-zinc-900 overflow-hidden">
+    <section className="relative bg-gray-50 overflow-hidden py-16 lg:py-24">
       {/* Background decorative elements */}
-      <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[500px] h-[500px] bg-lime-400/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 left-1/4 w-[300px] h-[300px] bg-lime-400/5 rounded-full blur-[80px] pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
+      <div className="absolute top-0 right-0 w-1/3 h-full bg-red-600/5 -skew-x-12 translate-x-1/2 pointer-events-none" />
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left content */}
           <div className="relative z-10">
-            <div className="inline-flex items-center gap-2 bg-lime-400/10 border border-lime-400/20 rounded-full px-4 py-1.5 mb-6">
-              <span className="w-2 h-2 bg-lime-400 rounded-full animate-pulse" />
-              <span className="text-lime-400 text-sm font-medium">
-                Działamy na terenie Polski i Niemiec
+            <div className="inline-flex items-center gap-2 bg-red-600/10 border border-red-600/20 rounded-full px-4 py-1.5 mb-8">
+              <span className="w-2 h-2 bg-red-600 rounded-full animate-pulse" />
+              <span className="text-red-600 text-sm font-bold uppercase tracking-wider">
+                Polska & Niemcy
               </span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tight">
-              Kompleksowe Instalacje{" "}
-              <span className="text-lime-400">Elektryczne</span>{" "}
-              i&nbsp;Elektroenergetyczne
+            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold text-gray-900 leading-[1.1] tracking-tight">
+              Kompleksowe Instalacje <br />
+              <span className="text-red-600">Elektryczne</span> <br />
+              <span className="text-gray-800 tracking-tighter">& Elektroenergetyczne</span>
             </h1>
 
-            <p className="mt-6 text-lg text-zinc-400 leading-relaxed max-w-xl">
-              Realizujemy zlecenia od domów jednorodzinnych, przez apartamenty,
-              aż po zaawansowane instalacje przemysłowe i systemy Smart Home.
-              Zaufaj certyfikowanym ekspertom i nowoczesnym technologiom.
+            <p className="mt-8 text-xl text-gray-600 leading-relaxed max-w-xl">
+              Od standardowych instalacji w domach po nowoczesne systemy Smart Home i obiekty przemysłowe. Realizujemy projekty na terenie Polski i Niemiec.
             </p>
 
-            <div className="mt-8 flex flex-col sm:flex-row gap-4">
+            <div className="mt-10 flex flex-col sm:flex-row gap-5">
               <a
                 href="#uslugi"
-                className="inline-flex items-center justify-center gap-2 bg-lime-400 hover:bg-lime-300 text-zinc-900 font-semibold px-7 py-3.5 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-lime-400/25 group"
+                className="inline-flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold px-8 py-4 rounded-md transition-all duration-200 shadow-lg hover:shadow-red-600/30 active:scale-95 group"
               >
-                Zobacz naszą ofertę
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                Zobacz ofertę
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </a>
               <a
                 href="#kontakt"
-                className="inline-flex items-center justify-center gap-2 border border-zinc-600 hover:border-lime-400 text-white hover:text-lime-400 font-semibold px-7 py-3.5 rounded-lg transition-all duration-200 group bg-zinc-800/50 backdrop-blur"
+                className="inline-flex items-center justify-center gap-2 border-2 border-red-600 text-red-600 hover:bg-red-50 font-bold px-8 py-4 rounded-md transition-all duration-200 active:scale-95"
               >
-                <Phone className="w-4 h-4 text-lime-400 group-hover:animate-bounce" />
-                Darmowa wycena
+                Skontaktuj się
               </a>
             </div>
 
-            {/* Mini stats */}
-            <div className="mt-12 flex gap-8">
+            {/* Quick stats / Features */}
+            <div className="mt-16 grid grid-cols-2 sm:grid-cols-3 gap-8 border-t border-gray-200 pt-10">
               <div>
-                <p className="text-3xl font-bold text-white">2+</p>
-                <p className="text-sm text-zinc-500 mt-1">Szybkich ekip mobilnych</p>
+                <p className="text-3xl font-black text-gray-900">15+</p>
+                <p className="text-sm font-bold text-gray-500 uppercase">Lat doświadczenia</p>
               </div>
-              <div className="border-l border-zinc-800 pl-8">
-                <p className="text-3xl font-bold text-white">4</p>
-                <p className="text-sm text-zinc-500 mt-1">
-                  Obsługiwane województwa
-                </p>
+              <div>
+                <p className="text-3xl font-black text-gray-900">500+</p>
+                <p className="text-sm font-bold text-gray-500 uppercase">Realizacji</p>
               </div>
-              <div className="border-l border-zinc-800 pl-8">
-                <p className="text-3xl font-bold text-lime-400">24h</p>
-                <p className="text-sm text-zinc-500 mt-1">Szybki kontakt</p>
+              <div className="col-span-2 sm:col-span-1">
+                <p className="text-3xl font-black text-red-600 font-serif italic text-sm">JAKOŚĆ & BEZPIECZEŃSTWO</p>
               </div>
             </div>
           </div>
 
-          {/* Right visual - Image Carousel */}
-          <div className="relative hidden lg:block h-full min-h-[500px]">
-            {/* Decorative lime glow */}
-            <div className="absolute inset-0 bg-lime-400/20 rounded-3xl blur-3xl" />
-
-            <div className="absolute inset-0 rounded-3xl overflow-hidden border border-zinc-700/50 shadow-2xl shadow-lime-900/20 z-10 bg-zinc-800">
+          {/* Right visual - Bright, clean image display */}
+          <div className="relative h-[400px] lg:h-[600px] w-full">
+            <div className="absolute inset-0 bg-white rounded-2xl shadow-2xl shadow-gray-200 overflow-hidden border border-gray-100">
               {heroImages.map((image, index) => (
                 <div
                   key={image.src}
                   className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-                    index === currentImageIndex ? "opacity-100" : "opacity-0"
+                    index === currentImageIndex ? "opacity-100 scale-100" : "opacity-0 scale-105"
                   }`}
                 >
                   <Image
                     src={image.src}
                     alt={image.alt}
                     fill
-                    className="object-cover object-center grayscale-[15%] hover:grayscale-0 transition-all duration-700 scale-105 hover:scale-100"
+                    className="object-cover"
                     priority={index === 0}
                   />
-                  {/* Info overlay for current slide */}
-                  <div className="absolute bottom-6 right-6 bg-zinc-900/80 backdrop-blur border border-zinc-700/50 px-4 py-2 rounded-lg pointer-events-none">
-                    <p className="text-zinc-300 text-xs font-medium uppercase tracking-wider">
-                      Projekt: <span className="text-white">{image.alt}</span>
-                    </p>
-                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                 </div>
               ))}
               
-              {/* Gradient overlay to fade bottom */}
-              <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 via-transparent to-transparent opacity-60 pointer-events-none" />
-
-              {/* Slide indicators */}
-              <div className="absolute bottom-6 left-6 flex gap-2 z-20">
-                {heroImages.map((_, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setCurrentImageIndex(idx)}
-                    className={`h-1.5 rounded-full transition-all duration-300 ${
-                      idx === currentImageIndex
-                        ? "w-6 bg-lime-400"
-                        : "w-2 bg-zinc-600 hover:bg-zinc-400"
-                    }`}
-                    aria-label={`Go to slide ${idx + 1}`}
-                  />
-                ))}
+              {/* Playful red elements */}
+              <div className="absolute top-8 right-8 z-20 bg-red-600 text-white p-4 rounded-xl shadow-xl flex items-center gap-3 animate-bounce shadow-red-600/20">
+                <Phone className="w-6 h-6" />
+                <span className="font-bold">+48 575 398 688</span>
               </div>
             </div>
-            
-            {/* Floating badge */}
-            <div className="absolute -left-6 bottom-16 z-20 bg-zinc-900 border border-lime-400/30 p-4 rounded-xl shadow-xl shadow-black/50 backdrop-blur flex items-center gap-4">
-              <div className="w-12 h-12 bg-lime-400/20 rounded-full flex items-center justify-center shrink-0">
-                <svg className="w-6 h-6 text-lime-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-              </div>
-              <div>
-                <p className="text-white font-bold leading-tight">Gwarancja</p>
-                <p className="text-zinc-400 text-xs">Jakości i bezpieczeństwa</p>
+
+            {/* Floating decoration */}
+            <div className="absolute -bottom-6 -left-6 z-20 bg-white p-6 rounded-2xl shadow-xl border border-gray-50 hidden sm:block">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center text-white">
+                  <Zap className="w-6 h-6 fill-current" />
+                </div>
+                <div>
+                  <p className="text-gray-900 font-black leading-none">Smart Home</p>
+                  <p className="text-gray-500 text-xs font-bold mt-1">SYSTEMY PRZYSZŁOŚCI</p>
+                </div>
               </div>
             </div>
           </div>

@@ -4,27 +4,14 @@ const regions = [
   {
     name: "Zachodniopomorskie",
     cities: [
-      "Szczecin",
-      "Police",
-      "Goleniów",
-      "Stargard",
-      "Gryfino",
-      "Pyrzyce",
       "Koszalin",
-      "Białogard",
-    ],
-  },
-  {
-    name: "Nadmorskie",
-    cities: [
-      "Mielno",
-      "Unieście",
-      "Sarbinowo",
+      "Szczecin",
       "Kołobrzeg",
-      "Dźwirzyno",
-      "Ustronie Morskie",
-      "Darłowo",
-      "Jarosławiec",
+      "Białogard",
+      "Mielno",
+      "Sławno",
+      "Stargard",
+      "Szczecinek",
     ],
   },
   {
@@ -32,12 +19,12 @@ const regions = [
     cities: [
       "Słupsk",
       "Ustka",
-      "Miastko",
-      "Polanów",
-      "Bytów",
       "Gdańsk",
       "Gdynia",
       "Sopot",
+      "Bytów",
+      "Lębork",
+      "Chojnice",
     ],
   },
   {
@@ -56,38 +43,36 @@ const regions = [
 
 export default function AreaOfOperation() {
   return (
-    <section id="obszar" className="bg-green-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
-        <div className="text-center mb-14">
-          <span className="text-lime-600 font-semibold text-sm uppercase tracking-widest">
-            Zasięg
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 mt-3">
-            Obszar działalności
+    <section id="obszar" className="bg-white py-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-gray-900 tracking-tight">
+            Gdzie działamy?
           </h2>
+          <div className="mt-4 w-24 h-1.5 bg-red-600 mx-auto rounded-full" />
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-3 gap-8">
           {regions.map((region, i) => (
             <div
               key={i}
-              className="bg-white rounded-2xl p-7 shadow-sm border border-stone-100 hover:shadow-lg transition-shadow duration-300"
+              className="bg-gray-50 rounded-xl p-8 border border-gray-100 hover:shadow-lg transition-all duration-300 group"
             >
-              <div className="flex items-center gap-3 mb-6 pb-4 border-b border-stone-100">
-                <div className="w-10 h-10 bg-lime-400/15 rounded-xl flex items-center justify-center shrink-0">
-                  <MapPin className="w-5 h-5 text-lime-600" />
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center shrink-0 shadow-lg shadow-red-600/20">
+                  <MapPin className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-zinc-900 font-bold text-lg leading-tight">
+                <h3 className="text-gray-900 font-black text-xl leading-tight">
                   {region.name}
                 </h3>
               </div>
-              <ul className="space-y-3">
+              <ul className="space-y-4">
                 {region.cities.map((city, j) => (
                   <li
                     key={j}
-                    className="flex items-center gap-3 text-zinc-600 text-sm font-medium"
+                    className="flex items-center gap-3 text-gray-600 font-bold"
                   >
-                    <span className="w-1.5 h-1.5 bg-lime-400 rounded-full shrink-0" />
+                    <span className="w-2 h-2 bg-red-600 rounded-full shrink-0" />
                     {city}
                   </li>
                 ))}

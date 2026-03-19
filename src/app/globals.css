@@ -1,14 +1,11 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-background: #18181b;
-  --color-foreground: #fafafa;
-  --color-lime-accent: #a3e635;
-  --color-lime-accent-hover: #84cc16;
-  --color-dark: #18181b;
-  --color-dark-card: #27272a;
-  --color-stone-bg: #fafaf9;
-  --color-green-bg: #f0fdf4;
+  --color-background: #ffffff;
+  --color-foreground: #111827;
+  --color-primary: #dc2626;
+  --color-primary-hover: #b91c1c;
+  --color-light-gray: #f9fafb;
   --font-sans: var(--font-inter);
 }
 
